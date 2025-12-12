@@ -64,15 +64,18 @@ public class PacienteRepository {
     // ---------------------------
     // Métodos públicos de acceso
     // ---------------------------
+    // Obtenemos la lista de pacientes a partir de su método getPacientes()
     public List<Paciente> getPacientes() {
         return new ArrayList<>(pacientes);
     }
-
+    
+    // Para añadir pacientes, se usa el método público addPaciente(Paciente p)
     public void addPaciente(Paciente p) {
         pacientes.add(p);
         save();
     }
 
+    // Para eliminar pacientes, se usa el método público removePaciente(Paciente p)
     public void removePaciente(String dni) {
         pacientes.removeIf(p -> p.getDni().equals(dni));
         save();
