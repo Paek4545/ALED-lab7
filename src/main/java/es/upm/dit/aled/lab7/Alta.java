@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -19,7 +16,6 @@ import jakarta.servlet.http.*;
  */
 @WebServlet("/alta")
 public class Alta extends HttpServlet {
-
 	/*
 	 * La única instancia de PacienteRepository se crea y se almacena en el método init() del Servlet Alta.java
 	 */
@@ -64,14 +60,16 @@ public class Alta extends HttpServlet {
 		while((linea = html.readLine()) != null)
 		pagina += linea;
 		
-		// Nos creamos un repositorio de pacientes (rellenamos el mensaje)
+		// Nos creamos un repositorio de pacientes (rellenamos el mensaje) --> Necesario para obtener los métodos de la clase
+		// PacienteRespository
 		PacienteRepository repositorio = (PacienteRepository) getServletContext().getAttribute("repo");
+		
 		if(repositorio.findByDni(dni) != null) {
-			pagina = pagina.replace("<h2></h2>", "<h2>El paciente con el dni " + dni + " ya existe");
+			pagina = pagina.replace("<h2></h2>", "<h2>El paciente con el dni " + dni + " ya existe</h2>");
 		} else {
 			Paciente p = new Paciente(nombre,apellidos,dni);
 			repositorio.addPaciente(p);
-			pagina = pagina.replace("<h2></h2>", "<h2>El paciente con el DNI " + dni + "se ha añdadido correctamente.");
+			pagina = pagina.replace("<h2></h2>", "<h2 style='color:green;'>El paciente con el DNI " + dni + " se ha añadido correctamente.</h2>");
 		}
 		
 		// Devolvemos al cliente el contenido de la nueva página
