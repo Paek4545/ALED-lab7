@@ -72,7 +72,7 @@ public class Alta extends HttpServlet {
 			pagina = pagina.replace("<h2></h2>", "<h2 style='color:green;'>El paciente con el DNI " + dni + " se ha añadido correctamente.</h2>");
 		}
 		
-		// Devolvemos al cliente el contenido de la nueva página
+		// Devolvemos al cliente el contenido de la nueva página (enviamos la respuesta)
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println(pagina);
